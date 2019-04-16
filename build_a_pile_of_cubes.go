@@ -1,10 +1,29 @@
 package main
 
+import (
+	"fmt"
+	"math"
+)
+
 func FindNb(m int) int {
-	// your code
+
+	var sum float64
+	var n int
+
+	for n = 0; int(sum) < m; n++ {
+		sum = math.Pow(float64(n*(n+1)), float64(2)) / 4
+	}
+
+	if int(sum) == m {
+		return n - 1
+	} else {
+		return -1
+	}
+
 }
 
 func main() {
+	fmt.Println(FindNb(4183059834009))
 
 }
 
