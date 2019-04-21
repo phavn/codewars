@@ -9,45 +9,43 @@ import (
 
 func ValidBraces(str string) bool {
 
-	innerCounter := 1
+	var strSlice []string
 
 	fmt.Println(str)
 
-	for index, c := range str {
+	for _, c := range(str) {
+		strSlice = append(strSlice, string(c))
+	}
+
+	fmt.Println(strSlice)
+
+	for i, c := range(strSlice) {
 		switch string(c) {
-		case ")": 
-			// fmt.Println(string(str[index-innerCounter])+ " " +string(str[index]))
-			if string(str[index-innerCounter]) != "(" {
-				return false
-			}				
-			innerCounter = innerCounter + 2
-		case "]": 
-//			fmt.Println(string(str[index-innerCounter])+ " " +string(str[index]))
-			if string(str[index-innerCounter]) != "[" {
+		case ")":
+			if strSlice[i-1] == "(" {
+				strSlice = append(strSlice[:i-1], strSlice[i+1:]...)
+			} else {
 				return false
 			}
-			innerCounter = innerCounter + 2
-		case "}": 
-//			fmt.Println(string(str[index-innerCounter])+ " " +string(str[index]))
-			if string(str[index-innerCounter]) != "{" {
+		case "]":
+			if strSlice[i-1] == "[" {
+				strSlice = append(strSlice[:i-1], strSlice[i+1:]...)
+			} else {
 				return false
 			}
-			innerCounter = innerCounter + 2
-		case "(", "[", "{":
-			//fmt.Println("innerCounter reset: " +strconv.Itoa(innerCounter))
-			innerCounter = 1
 		}
 	}
 
+	fmt.Println(strSlice)	
 
 	return true
 }
 
 func main() {
 
-	fmt.Println(ValidBraces("({})"))
-	fmt.Println(ValidBraces("(){}[]"))
-	fmt.Println(ValidBraces("(("))
+	//ValidBraces("({})")
+	ValidBraces("(){}[]")
+	//ValidBraces("((")
 }
 
 
