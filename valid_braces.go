@@ -11,41 +11,57 @@ func ValidBraces(str string) bool {
 
 	var strSlice []string
 
-	fmt.Println(str)
-
 	for _, c := range(str) {
 		strSlice = append(strSlice, string(c))
 	}
 
-	fmt.Println(strSlice)
+	i := 0
+	l := len(strSlice)
 
-	for i, c := range(strSlice) {
-		switch string(c) {
+	for i < l {
+		switch string(strSlice[i]) {
 		case ")":
 			if strSlice[i-1] == "(" {
 				strSlice = append(strSlice[:i-1], strSlice[i+1:]...)
+				l = l - 2
+				i--
 			} else {
-				return false
+				i++
 			}
 		case "]":
 			if strSlice[i-1] == "[" {
 				strSlice = append(strSlice[:i-1], strSlice[i+1:]...)
+				l = l - 2
+				i--
 			} else {
-				return false
+				i++
 			}
+		case "}":
+			if strSlice[i-1] == "{" {
+				strSlice = append(strSlice[:i-1], strSlice[i+1:]...)
+				l = l - 2
+				i--
+			} else {
+				i++
+			}
+		default:
+			i++
 		}
 	}
 
-	fmt.Println(strSlice)	
+	if len(strSlice) == 0 {
+		return true
+	} else {
+		return false
+	}
 
-	return true
 }
 
 func main() {
 
-	//ValidBraces("({})")
-	ValidBraces("(){}[]")
-	//ValidBraces("((")
+	//fmt.Println(ValidBraces("({})"))
+	//fmt.Println(ValidBraces("(){}[]"))
+	fmt.Println(ValidBraces("(}"))
 }
 
 
