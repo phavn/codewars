@@ -4,9 +4,6 @@ import (
 	"fmt"
 )
 
-// TODO: In progress
-//TODO: Convert string to slice then, use stack pop instead of using innerCounter.
-
 func ValidBraces(str string) bool {
 
 	var strSlice []string
@@ -18,10 +15,11 @@ func ValidBraces(str string) bool {
 	i := 0
 	l := len(strSlice)
 
+	// If matching braces found, remove them both from slice and decrease slice length by 2
 	for i < l {
 		switch string(strSlice[i]) {
 		case ")":
-			if strSlice[i-1] == "(" {
+			if i > 0 && strSlice[i-1] == "(" {
 				strSlice = append(strSlice[:i-1], strSlice[i+1:]...)
 				l = l - 2
 				i--
@@ -29,7 +27,7 @@ func ValidBraces(str string) bool {
 				i++
 			}
 		case "]":
-			if strSlice[i-1] == "[" {
+			if i > 0 && strSlice[i-1] == "[" {
 				strSlice = append(strSlice[:i-1], strSlice[i+1:]...)
 				l = l - 2
 				i--
@@ -37,7 +35,7 @@ func ValidBraces(str string) bool {
 				i++
 			}
 		case "}":
-			if strSlice[i-1] == "{" {
+			if i > 0 && strSlice[i-1] == "{" {
 				strSlice = append(strSlice[:i-1], strSlice[i+1:]...)
 				l = l - 2
 				i--
@@ -49,11 +47,8 @@ func ValidBraces(str string) bool {
 		}
 	}
 
-	if len(strSlice) == 0 {
-		return true
-	} else {
-		return false
-	}
+	// Return fqlse if non empty slice
+	return len(strSlice) == 0
 
 }
 
@@ -61,7 +56,7 @@ func main() {
 
 	//fmt.Println(ValidBraces("({})"))
 	//fmt.Println(ValidBraces("(){}[]"))
-	fmt.Println(ValidBraces("(}"))
+	fmt.Println(ValidBraces("]}"))
 }
 
 
